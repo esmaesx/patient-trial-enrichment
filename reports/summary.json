@@ -1,0 +1,13 @@
+{
+  "best_model": "logreg",
+  "roc_auc": 0.727,
+  "pr_auc": 0.46,
+  "brier": 0.207,
+  "base_rate": 0.2273,
+  "selected_percentile": 20,
+  "selected_yield": 0.4667,
+  "enrichment": 2.05,
+  "screened_base": 2199,
+  "screened_enriched": 1071,
+  "screening_reduction": 0.51
+}
