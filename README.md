@@ -1,41 +1,28 @@
 # Patient Trial Enrichment
-Demo: ML‑based clinical patient trial enrichment (synthetic data)
 
-**Goal:** Demonstrate how genetics + clinical covariates can enrich a trial population and reduce screening failures using **synthetic cohorts** (no IP, no disease‑specific details).
+Synthetic demo showing how risk-based pre-screening can improve clinical trial yield. The pipeline generates a 6,000-row cohort with 60 SNPs plus age/sex/BMI/comorbidity_count, trains two classifiers, and reports how selecting the top-risk tranche changes screening load. The focus is on enrichment math, not disease-specific results.
 
-## What this shows
-- Building a PRS‑style risk model from simulated genetic features
-- Integrating clinical covariates (age/sex/BMI/comorbidities)
-- How enrichment shifts eligibility yield and screening burden
+Why it matters
+- Trial operations teams need concrete estimates of screening savings, not just model AUCs.
+- Genetics + clinical covariates often move yield more than either alone.
+- A simple, reproducible demo makes enrichment tradeoffs easy to communicate.
 
-## Notes
-Everything here uses **synthetic data** and generic labels. The focus is on methodology, validation, and trial‑operations impact.
-
-## Repo structure
-```
-patient-trial-enrichment/
-  data/                 # synthetic data (optional)
-  notebooks/            # exploration + demo
-  src/                  # reusable code
-  reports/              # figures + short report
-  README.md
-  LICENSE
-```
-
-## Quick start
+Quickstart
 ```bash
-pip install -r requirements.txt
-python src/run_pipeline.py
+make setup
+make demo
+make test
 ```
 
-Outputs:
-- `reports/enrichment_yield.png`
-- `reports/enrichment_curve.csv`
-- `reports/summary.md`
+What you get
+- `reports/enrichment_yield.png` (yield vs. selection percentile)
+- `reports/enrichment_curve.csv` (percentiles, yield rates, enrichment)
+- `reports/summary.json` and `reports/summary.md` (screening savings at top 20%)
 
-## Tech
-- Python (primary)
-- R (optional, if you want to extend with PRS tools)
+Notes / assumptions
+- Synthetic cohort is generated in `src/simulate.py` (6,000 samples, 60 SNPs; seed=7).
+- Base event rate is controlled by the logit intercept (-2.2) to land around ~10%.
+- Model selection uses ROC AUC on a 25% holdout; screening savings are computed at the top 20% predicted risk.
 
----
-*Author: Sahar Esmaeeli, PhD*
+Status
+Ready for demo; uses only synthetic data.
