@@ -1,8 +1,6 @@
 from pathlib import Path
 import json
 
-import pandas as pd
-
 from simulate import generate_synthetic_cohort
 from modeling import train_models
 from enrichment import enrichment_curve, screening_savings
